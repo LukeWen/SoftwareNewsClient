@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -139,8 +140,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
 
         @Override
@@ -148,11 +149,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.title_section1);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.title_section2);
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return getString(R.string.title_section3);
+                case 3:
+                    return getString(R.string.title_section4);
             }
             return null;
         }
@@ -186,9 +189,18 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-            return rootView;
+            switch (this.getArguments().getInt(ARG_SECTION_NUMBER))
+            {
+                case 1:
+                    return inflater.inflate(R.layout.fragment_home, container, false);
+                case 2:
+                    return inflater.inflate(R.layout.fragment_news, container, false);
+                case 3:
+                    return inflater.inflate(R.layout.fragment_notice, container, false);
+                case 4:
+                    return inflater.inflate(R.layout.fragment_related, container, false);
+            }
+            return  null;
         }
     }
-
 }

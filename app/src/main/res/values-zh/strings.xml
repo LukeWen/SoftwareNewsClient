@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">软件新闻</string>
     <string name="action_settings">设置</string>
-    <string name="title_section1"></string>
+    <string name="title_section1">首页</string>
     <string name="hello_world">你好！世界</string>
+    <string name="title_section2">新闻</string>
+    <string name="title_section3">通知</string>
+    <string name="title_activity_settings">设置</string>
+    <string name="title_section4">相关</string>
 </resources>
