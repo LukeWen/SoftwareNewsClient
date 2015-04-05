@@ -1,4 +1,4 @@
-package com.icephone.softwarenewsclient;
+package com.icephone.softwarenewsclient.ui;
 
 import java.util.Locale;
 
@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.icephone.softwarenewsclient.R;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
