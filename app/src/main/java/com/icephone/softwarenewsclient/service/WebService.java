@@ -21,9 +21,10 @@ import java.util.List;
  */
 public class WebService {
     private static Gson gson;
+
     public static String getNewById(int id) {
         // TODO Auto-generated method stub
-        SoapObject request = new SoapObject(Constant.NAMESPACE,Constant.GET_NEWS);//调用webservice的方法
+        SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_NEWS);//调用webservice的方法
         request.addProperty("newsId", id);//向findUserByName传入name参数
         request.addProperty("phone", 1);//向findUserByName传入name参数
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
@@ -36,7 +37,7 @@ public class WebService {
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+Constant.GET_NEWS, envelope);
+            trans.call(Constant.NAMESPACE + Constant.GET_NEWS, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -55,9 +56,10 @@ public class WebService {
         }
         return json;
     }
-    public static String getNewsByIdAndType(int id,int type) {
+
+    public static String getNewsByIdAndType(int id, int type) {
         // TODO Auto-generated method stub
-        SoapObject request = new SoapObject(Constant.NAMESPACE,Constant.GET_TYPE_NEWS);//调用webservice的方法
+        SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_TYPE_NEWS);//调用webservice的方法
         request.addProperty("newsId", id);//向findUserByName传入name参数
         request.addProperty("type", type);//向findUserByName传入name参数
         request.addProperty("phone", 1);//向findUserByName传入name参数
@@ -71,7 +73,7 @@ public class WebService {
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+Constant.GET_TYPE_NEWS, envelope);
+            trans.call(Constant.NAMESPACE + Constant.GET_TYPE_NEWS, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -90,45 +92,46 @@ public class WebService {
         }
         return json;
     }
-   /* public static String getNewerNewsByIdAndType(int id,int type) {
-        Log.e("————发出的消息——————", id+"       "+type);
-        // 1、指定webservice的命名空间和调用的方法名
-        SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_TYPE_NEWERNEWS);
-        request.addProperty("newestId", (id+""));//向findUserByName传入name参数
-        request.addProperty("type", type);//向findUserByName传入name参数
-        request.addProperty("phone", 1);//向findUserByName传入name参数
-        // 3、生成调用Webservice方法的SOAP请求信息。该信息由SoapSerializationEnvelope对象描述
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                SoapEnvelope.VER12);
-        envelope.bodyOut = request;
-        // c#写的应用程序必须加上这句
-        envelope.dotNet = true;
-        HttpTransportSE ht = new HttpTransportSE(Constant.URL);
-        // 使用call方法调用WebService方法
-        try {
-            ht.call(null, envelope);
-        } catch (HttpResponseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        }
-        try {
-            final SoapPrimitive result = (SoapPrimitive) envelope.getResponse();
-            if (result != null) {
-                Log.e("----收到的回复----", result.toString());
-                return result.toString();
-            }
-        } catch (SoapFault e) {
-            Log.e("----发生错误---", e.getMessage());
-            e.printStackTrace();
-        }
-        return null;
-    }*/
-    public static String getNewerNewsByIdAndType(int id,int type) {
+
+    /* public static String getNewerNewsByIdAndType(int id,int type) {
+         Log.e("————发出的消息——————", id+"       "+type);
+         // 1、指定webservice的命名空间和调用的方法名
+         SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_TYPE_NEWERNEWS);
+         request.addProperty("newestId", (id+""));//向findUserByName传入name参数
+         request.addProperty("type", type);//向findUserByName传入name参数
+         request.addProperty("phone", 1);//向findUserByName传入name参数
+         // 3、生成调用Webservice方法的SOAP请求信息。该信息由SoapSerializationEnvelope对象描述
+         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                 SoapEnvelope.VER12);
+         envelope.bodyOut = request;
+         // c#写的应用程序必须加上这句
+         envelope.dotNet = true;
+         HttpTransportSE ht = new HttpTransportSE(Constant.URL);
+         // 使用call方法调用WebService方法
+         try {
+             ht.call(null, envelope);
+         } catch (HttpResponseException e) {
+             e.printStackTrace();
+         } catch (IOException e) {
+             e.printStackTrace();
+         } catch (XmlPullParserException e) {
+             e.printStackTrace();
+         }
+         try {
+             final SoapPrimitive result = (SoapPrimitive) envelope.getResponse();
+             if (result != null) {
+                 Log.e("----收到的回复----", result.toString());
+                 return result.toString();
+             }
+         } catch (SoapFault e) {
+             Log.e("----发生错误---", e.getMessage());
+             e.printStackTrace();
+         }
+         return null;
+     }*/
+    public static String getNewerNewsByIdAndType(int id, int type) {
         // TODO Auto-generated method stub
-        SoapObject request = new SoapObject(Constant.NAMESPACE,Constant.GET_TYPE_NEWERNEWS);//调用webservice的方法
+        SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_TYPE_NEWERNEWS);//调用webservice的方法
         request.addProperty("newestId", id);//向findUserByName传入name参数
         request.addProperty("type", type);//向findUserByName传入name参数
         request.addProperty("phone", 1);//向findUserByName传入name参数
@@ -142,7 +145,7 @@ public class WebService {
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+Constant.GET_TYPE_NEWERNEWS, envelope);
+            trans.call(Constant.NAMESPACE + Constant.GET_TYPE_NEWERNEWS, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -161,9 +164,10 @@ public class WebService {
         }
         return json;
     }
-    public static String subAdvice(String title,String content,String email) {
+
+    public static String subAdvice(String title, String content, String email) {
         // TODO Auto-generated method stub
-        SoapObject request = new SoapObject(Constant.NAMESPACE,Constant.GET_ADVICE);//调用webservice的方法
+        SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_ADVICE);//调用webservice的方法
         request.addProperty("title", title);//向findUserByName传入name参数
         request.addProperty("content", content);//向findUserByName传入name参数
         request.addProperty("email", email);//向findUserByName传入name参数
@@ -177,7 +181,7 @@ public class WebService {
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+Constant.GET_ADVICE, envelope);
+            trans.call(Constant.NAMESPACE + Constant.GET_ADVICE, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -206,14 +210,14 @@ public class WebService {
                 SoapEnvelope.VER12);// 版本
 
         envelope.bodyOut = request;
-     //   envelope.dotNet = false;
+        //   envelope.dotNet = false;
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
 
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+Constant.METHOD_NAME, envelope);
+            trans.call(Constant.NAMESPACE + Constant.METHOD_NAME, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -266,11 +270,12 @@ public class WebService {
         }
         return null;
     }*/
-   /* *//**
+   /* */
+
+    /**
      * 调用WebService
      *
      * @return WebService的返回值
-     *
      *//*
     public String CallWebService(String MethodName, Map<String, String> Params) {
         // 1、指定webservice的命名空间和调用的方法名
@@ -315,7 +320,6 @@ public class WebService {
         }
         return null;
     }*/
-
     public static String searchContant(String key) {
         SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.SEARCH_CONTANT);//调用webservice的方法
         request.addProperty("key", key);//向findUserByName传入name参数
@@ -330,7 +334,7 @@ public class WebService {
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+ Constant.SEARCH_CONTANT, envelope);
+            trans.call(Constant.NAMESPACE + Constant.SEARCH_CONTANT, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -348,6 +352,7 @@ public class WebService {
         }
         return json;
     }
+
     public static String searchTitle(String key) {
         SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.SEARCH_TITLE);//调用webservice的方法
         request.addProperty("key", key);//向findUserByName传入name参数
@@ -362,7 +367,7 @@ public class WebService {
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;	// 使用调试功能
         try {
-            trans.call(Constant.NAMESPACE+Constant.SEARCH_TITLE, envelope);
+            trans.call(Constant.NAMESPACE + Constant.SEARCH_TITLE, envelope);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -380,26 +385,25 @@ public class WebService {
         }
         return json;
     }
-    public  static News returnNews(String json)
-    {
-        try{
-            if (json.equals("null")||json == null) return null;
+
+    public static News returnNews(String json) {
+        try {
+            if (json.equals("null") || json == null) return null;
             gson = new Gson();
             return gson.fromJson(json, News.class);
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    public static List<News> returnNewses(String json)
-    {
-        try{
-            if (json.equals("null")||json == null) return null;
+
+    public static List<News> returnNewses(String json) {
+        try {
+            if (json.equals("null") || json == null) return null;
             gson = new Gson();
-            return gson.fromJson(json, new TypeToken<List<News>>() {}.getType());
-        }catch(Exception e)
-        {
+            return gson.fromJson(json, new TypeToken<List<News>>() {
+            }.getType());
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

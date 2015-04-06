@@ -13,27 +13,30 @@ import android.widget.Toast;
 public class ToastUtil {
     private static Toast toast = null;
 
-     /**
+    /**
      * 普通文本消息提示
+     *
      * @param context
      * @param text
      * @param duration
      */
-     public static void TextToast(Context context,CharSequence text,int duration){
-     //创建一个Toast提示消息
-     toast = Toast.makeText(context, text, duration);
-     //设置Toast提示消息在屏幕上的位置
-     toast.setGravity(Gravity.CENTER, 0, 0);
-       //显示消息
-      toast.show();
-      }
+    public static void TextToast(Context context, CharSequence text, int duration) {
+        //创建一个Toast提示消息
+        toast = Toast.makeText(context, text, duration);
+        //设置Toast提示消息在屏幕上的位置
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        //显示消息
+        toast.show();
+    }
+
     /**
      * 带图片消息提示
+     *
      * @param context
      * @param ImageResourceId
      * @param text
      */
-     public static void ImageToast(Context context,int ImageResourceId,CharSequence text){
+    public static void ImageToast(Context context, int ImageResourceId, CharSequence text) {
         //创建一个Toast提示消息
         toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
         //设置Toast提示消息在屏幕上的位置
@@ -41,9 +44,9 @@ public class ToastUtil {
         //获取Toast提示消息里原有的View
         View toastView = toast.getView();
         ImageView img = new ImageView(context);
-         //创建一个ImageView
+        //创建一个ImageView
         img.setImageResource(ImageResourceId);
-         //创建一个LineLayout容器
+        //创建一个LineLayout容器
         LinearLayout ll = new LinearLayout(context);
         //向LinearLayout中添加ImageView和Toast原有的View
         ll.addView(img);
@@ -52,6 +55,6 @@ public class ToastUtil {
         toast.setView(ll);
         //显示消息
         toast.show();
-        }
     }
+}
 

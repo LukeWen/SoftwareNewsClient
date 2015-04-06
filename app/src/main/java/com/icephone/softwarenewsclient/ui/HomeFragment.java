@@ -1,13 +1,12 @@
 package com.icephone.softwarenewsclient.ui;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by 温程元 on 2015/4/6.
@@ -45,12 +43,15 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             viewPager.setCurrentItem(currentItem);// 切换当前显示的图片
-        };
+        }
+
+        ;
     };
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageResId = new int[] { R.mipmap.h1, R.mipmap.h2, R.mipmap.h3, R.mipmap.h4, R.mipmap.h5 };
+        imageResId = new int[]{R.mipmap.h1, R.mipmap.h2, R.mipmap.h3, R.mipmap.h4, R.mipmap.h5};
         titles = new String[imageResId.length];
         titles[0] = "标题1";
         titles[1] = "标题2";
@@ -88,8 +89,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
-                switch (action)
-                {
+                switch (action) {
                     case MotionEvent.ACTION_DOWN:
                         scheduledExecutorService.shutdown();
                         break;
@@ -140,6 +140,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     public void onPageScrollStateChanged(int state) {
 
     }
+
     @Override
     public void onStart() {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
@@ -158,11 +159,11 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         scheduledExecutorService.shutdown();
         super.onStop();
     }
+
     /**
      * 换行切换任务
      *
      * @author Administrator
-     *
      */
     private class ScrollTask implements Runnable {
 
@@ -175,11 +176,11 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         }
 
     }
+
     /**
      * 当ViewPager中页面的状态发生改变时调用
      *
      * @author Administrator
-     *
      */
     private class MyPageChangeListener implements ViewPager.OnPageChangeListener {
         private int oldPosition = 0;
@@ -209,7 +210,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
      * 填充ViewPager页面的适配器
      *
      * @author Administrator
-     *
      */
     private class MyAdapter extends PagerAdapter {
 

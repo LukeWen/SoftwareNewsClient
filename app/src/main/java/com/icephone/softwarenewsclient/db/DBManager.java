@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import com.icephone.softwarenewsclient.modle.News;
 import com.icephone.softwarenewsclient.util.Constant;
 
@@ -24,39 +23,41 @@ public class DBManager {
         //所以要确保context已初始化,我们可以把实例化DBManager的步骤放在Activity的onCreate里
         db = helper.getWritableDatabase();
     }
+
     public void addNews(News news) {
         SQLiteDatabase db = helper.getWritableDatabase();
         if (db != null) {
             db.execSQL("INSERT INTO news VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{
-                    news.getNewId(),news.getTypeId(),news.getAdminId(),news.getNewsTitle(),
-            news.getNewsContent(),news.getNewsTime(),news.getSeeNum(),news.getThumbnail(),news.getSubType()});
+                    news.getNewId(), news.getTypeId(), news.getAdminId(), news.getNewsTitle(),
+                    news.getNewsContent(), news.getNewsTime(), news.getSeeNum(), news.getThumbnail(), news.getSubType()});
         }
         //db.close();
     }
+
     public void delNews(int id) {
         if (db == null)
             db = helper.getWritableDatabase();
-        db.delete(Constant.DBProperty.TBL_NAME, "newId=?", new String[] { String.valueOf(id) });
+        db.delete(Constant.DBProperty.TBL_NAME, "newId=?", new String[]{String.valueOf(id)});
     }
 
     /**
      * add newses
+     *
      * @param newses
      */
     public void addNewses(List<News> newses) {
         if (db != null) {
-            db.beginTransaction();	//开始事务
-        }
-        else return;
+            db.beginTransaction();    //开始事务
+        } else return;
         try {
             for (News news : newses) {
                 db.execSQL("INSERT INTO news VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[]{
-                        news.getNewId(),news.getTypeId(),news.getAdminId(),news.getNewsTitle(),
-                        news.getNewsContent(),news.getNewsTime(),news.getSeeNum(),news.getThumbnail(),news.getSubType()});
+                        news.getNewId(), news.getTypeId(), news.getAdminId(), news.getNewsTitle(),
+                        news.getNewsContent(), news.getNewsTime(), news.getSeeNum(), news.getThumbnail(), news.getSubType()});
             }
-            db.setTransactionSuccessful();	//设置事务成功完成
+            db.setTransactionSuccessful();    //设置事务成功完成
         } finally {
-            db.endTransaction();	//结束事务
+            db.endTransaction();    //结束事务
         }
     }
 
@@ -80,6 +81,7 @@ public class DBManager {
 
     /**
      * query all persons, return list
+     *
      * @return List<Person>
      */
     public List<News> query() {
@@ -107,7 +109,8 @@ public class DBManager {
 
     /**
      * query all persons, return cursor
-     * @return	Cursor
+     *
+     * @return Cursor
      */
     public Cursor queryTheCursor() {
         Cursor c = db.rawQuery("SELECT * FROM news", null);

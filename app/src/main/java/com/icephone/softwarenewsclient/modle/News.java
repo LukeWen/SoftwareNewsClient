@@ -3,11 +3,10 @@ package com.icephone.softwarenewsclient.modle;
 import java.io.Serializable;
 
 /**
- *
  * @author shen
- * news表，学院新闻表
+ *         news表，学院新闻表
  */
-public class News implements Serializable{
+public class News implements Serializable {
     private static final long serialVersionUID = 1;
     /**
      * 物理主键
@@ -56,58 +55,76 @@ public class News implements Serializable{
      * 5 教师信息
      */
     private int subType;
+
     //private List<>
     public int getNewId() {
         return newId;
     }
+
     public void setNewId(int newId) {
         this.newId = newId;
     }
+
     public int getTypeId() {
         return typeId;
     }
+
     public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
+
     public int getAdminId() {
         return adminId;
     }
+
     public void setAdminId(int adminId) {
         this.adminId = adminId;
     }
+
     public String getNewsContent() {
         return newsContent;
     }
+
     public void setNewsContent(String newsContent) {
         this.newsContent = newsContent;
     }
+
     public String getNewsTitle() {
         return newsTitle;
     }
+
     public void setNewsTitle(String newsTitle) {
         this.newsTitle = newsTitle;
     }
+
     public String getNewsTime() {
         return newsTime;
     }
+
     public void setNewsTime(String newsTime) {
         this.newsTime = newsTime;
     }
+
     public int getSeeNum() {
         return seeNum;
     }
+
     public void setSeeNum(int seeNum) {
         this.seeNum = seeNum;
     }
+
     public String getThumbnail() {
         return thumbnail;
     }
+
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
+
     public int getSubType() {
         return subType;
     }
+
     public void setSubType(int subType) {
         this.subType = subType;
     }

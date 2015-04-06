@@ -11,5 +11,4 @@
         android:title="@string/pref_header_notifications" />
 
 
-
 </preference-headers>
