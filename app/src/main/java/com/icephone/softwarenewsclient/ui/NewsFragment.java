@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.icephone.softwarenewsclient.R;
 
 /**
- * Created by �³�Ԫ on 2015/4/6.
+ * Created by 温程元 on 2015/4/6.
  */
 public class NewsFragment extends Fragment {
     @Override
