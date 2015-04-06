@@ -48,6 +48,7 @@ public class SettingsActivity extends PreferenceActivity {
         super.onPostCreate(savedInstanceState);
 
         setupSimplePreferencesScreen();
+        setContentView(R.layout.set_preference_main);
     }
 
     /**

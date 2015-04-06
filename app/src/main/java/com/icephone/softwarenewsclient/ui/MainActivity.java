@@ -34,6 +34,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
+    Fragment fragmentHome;
+    Fragment fragmentNews;
+    Fragment fragmentNotice;
+    Fragment fragmentRelated;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -135,7 +139,22 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+           // return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    fragmentHome = new HomeFragment();
+                    return fragmentHome;
+                case 1:
+                    fragmentNews = new NewsFragment();
+                    return fragmentNews;
+                case 2:
+                    fragmentNotice = new NoticeFragment();
+                    return fragmentNotice;
+                case 3:
+                    fragmentRelated = new RelatedFragment();
+                    return fragmentRelated;
+            }
+            return null;
         }
 
         @Override
@@ -164,43 +183,43 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            switch (this.getArguments().getInt(ARG_SECTION_NUMBER))
-            {
-                case 1:
-                    return inflater.inflate(R.layout.fragment_home, container, false);
-                case 2:
-                    return inflater.inflate(R.layout.fragment_news, container, false);
-                case 3:
-                    return inflater.inflate(R.layout.fragment_notice, container, false);
-                case 4:
-                    return inflater.inflate(R.layout.fragment_related, container, false);
-            }
-            return  null;
-        }
-    }
+//    public static class PlaceholderFragment extends Fragment {
+//        /**
+//         * The fragment argument representing the section number for this
+//         * fragment.
+//         */
+//        private static final String ARG_SECTION_NUMBER = "section_number";
+//
+//        /**
+//         * Returns a new instance of this fragment for the given section
+//         * number.
+//         */
+//        public static PlaceholderFragment newInstance(int sectionNumber) {
+//            PlaceholderFragment fragment = new PlaceholderFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+//
+//        public PlaceholderFragment() {
+//        }
+//
+//        @Override
+//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                                 Bundle savedInstanceState) {
+//            switch (this.getArguments().getInt(ARG_SECTION_NUMBER))
+//            {
+//                case 1:
+//                    return inflater.inflate(R.layout.fragment_home, container, false);
+//                case 2:
+//                    return inflater.inflate(R.layout.fragment_news, container, false);
+//                case 3:
+//                    return inflater.inflate(R.layout.fragment_notice, container, false);
+//                case 4:
+//                    return inflater.inflate(R.layout.fragment_related, container, false);
+//            }
+//            return  null;
+//        }
+//    }
 }

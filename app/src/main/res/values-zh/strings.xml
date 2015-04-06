@@ -8,4 +8,5 @@
     <string name="title_section3">通知</string>
     <string name="title_activity_settings">设置</string>
     <string name="title_section4">相关</string>
+    <string name="check_update">检查更新</string>
 </resources>
