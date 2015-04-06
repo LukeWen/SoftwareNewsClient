@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.icephone.softwarenewsclient.R;
+import com.icephone.softwarenewsclient.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +50,13 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageResId = new int[] { R.mipmap.a, R.mipmap.b, R.mipmap.c, R.mipmap.d, R.mipmap.e };
+        imageResId = new int[] { R.mipmap.h1, R.mipmap.h2, R.mipmap.h3, R.mipmap.h4, R.mipmap.h5 };
         titles = new String[imageResId.length];
-        titles[0] = "巩俐不低俗，我就不能低俗";
-        titles[1] = "扑树又回来啦！再唱经典老歌引万人大合唱";
-        titles[2] = "揭秘北京电影如何升级";
-        titles[3] = "乐视网TV版大派送";
-        titles[4] = "热血屌丝的反杀";
+        titles[0] = "标题1";
+        titles[1] = "标题2";
+        titles[2] = "标题3";
+        titles[3] = "标题4";
+        titles[4] = "标题5";
 
         imageViews = new ArrayList<>();
 
@@ -95,7 +96,12 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
                         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-                        scheduledExecutorService.scheduleAtFixedRate(new ScrollTask(), 1, 2, TimeUnit.SECONDS);
+                        // 当Activity显示出来后，每3秒钟切换一次图片显示
+                        scheduledExecutorService.scheduleAtFixedRate(
+                                new ScrollTask(),
+                                Constant.INITIAL_DELAY,
+                                Constant.PERIOD,
+                                Constant.UNIT);
                         break;
 
                 }
@@ -137,8 +143,12 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     @Override
     public void onStart() {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        // 当Activity显示出来后，每两秒钟切换一次图片显示
-        scheduledExecutorService.scheduleAtFixedRate(new ScrollTask(), 1, 2, TimeUnit.SECONDS);
+        // 当Activity显示出来后，每3秒钟切换一次图片显示
+        scheduledExecutorService.scheduleAtFixedRate(
+                new ScrollTask(),
+                Constant.INITIAL_DELAY,
+                Constant.PERIOD,
+                Constant.UNIT);
         super.onStart();
     }
 
@@ -158,7 +168,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
         public void run() {
             synchronized (viewPager) {
-                System.out.println("currentItem: " + currentItem);
+//                System.out.println("currentItem: " + currentItem);
                 currentItem = (currentItem + 1) % imageViews.size();
                 handler.obtainMessage().sendToTarget(); // 通过Handler切换图片
             }

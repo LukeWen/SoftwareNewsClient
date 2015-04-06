@@ -9,4 +9,9 @@
     <string name="title_activity_settings">设置</string>
     <string name="title_section4">相关</string>
     <string name="check_update">检查更新</string>
+    <string name="pref_title_vibrate">震动</string>
+    <string name="pref_header_notifications">系统通知</string>
+    <string name="pref_title_new_message_notifications">开启通知</string>
+    <string name="disconnecting">失去连接</string>
+    <string name="refresh">刷新</string>
 </resources>

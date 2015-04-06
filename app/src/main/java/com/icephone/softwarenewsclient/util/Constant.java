@@ -1,66 +1,150 @@
 package com.icephone.softwarenewsclient.util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.view.KeyEvent;
+
+import com.icephone.softwarenewsclient.db.DBHelper;
+
+import java.util.concurrent.TimeUnit;
+
 public final class Constant {
+
+	public static long INITIAL_DELAY = 1;
+	public static long PERIOD = 3;
+	public static int FRAGMENT_NUMBER_OF_MAIN = 4;
+	public static TimeUnit UNIT = TimeUnit.SECONDS;
+	public static boolean SERVICE_WORKING = false;
+	/**
+	 * SOAP相关
+	 */
+	public static final String NAMESPACE="http://software.hitwh.edu.cn/webservices/";//http://software.hitwh.edu.cn/webservice/
+	//public static final String URL = "http://192.168.1.123:81/service.asmx";
+	public static final String URL = "http://software.hitwh.edu.cn/softwareservice/service.asmx?wsdl";
+	public static final String METHOD_NAME = "getCurrentNews";
+	public static final String GET_NEWS = "getNewById";
+	public static final String GET_TYPE_NEWS = "getNewsByIdAndType";
+	public static final String GET_TYPE_NEWERNEWS = "getNewerNewsByIdAndType";
+	public static final String SEARCH_TITLE = "searchTitle";
+	public static final String SEARCH_CONTANT = "searchContent";
+	public static final String GET_ADVICE = "getAdvice";
+	//public static final String SOAP_ACTION = "http://software.hitwh.edu.cn/service.asmx";
+	public static final int FIRST_LOAD_NUM = 10;
+	public static int HOME_FIRST_LOAD_NUM= 4;
+	public static final int SEARCH_TIME= 20;
+	public static long CLICKTIME = 0;
+	public static boolean FLAG = false;
+
+
+
+	private static int counter = 0;
+	public static int countStr(String str1, String str2) {
+		if (str1.indexOf(str2) == -1) {
+			return 0;
+		} else if (str1.indexOf(str2) != -1) {
+			counter++;
+			countStr(str1.substring(str1.indexOf(str2) +
+					str2.length()), str2);
+			return counter;
+		}
+		return 0;
+	}
+	public static Boolean DBInjectionAttack(String str) {
+		String s = str.replaceAll("(?u)drop", "DROP");
+		s = s.replaceAll("(?u)delete", "DELETE");
+		s = s.replaceAll("(?u)insert", "INSERT");
+		s = s.replaceAll("(?u)create", "CREATE");
+		return countStr(s, "\"") > 0 ||countStr(s, "'") > 0 ||countStr(s, "DROP") > 0 || countStr(s, "news") > 0 || countStr(s, "DELETE") > 0 || countStr(s, "INSERT") > 0|| countStr(s, "CREATE") > 0;
+	}
+
+
+
+	public static boolean isNetworkConnected(Context context) {
+		if (context != null) {
+			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+			if (mNetworkInfo != null) {
+				return mNetworkInfo.isAvailable();
+			}
+		}
+		return false;
+	}
+
+
+	public static final boolean FINSH(int keyCode, KeyEvent event ,Context c){
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			DBHelper helper = new DBHelper(c);
+			helper.close();
+			System.exit(0);
+			android.os.Process.killProcess(android.os.Process.myPid());
+
+			return true;
+		} else
+			return false;
+	}
+
+
 	/**
 	 * 是否连接网络
 	 */
 	public static boolean isHasNetWork = false;
-	
-	
+
+
 	public static boolean isHasData = false;
-	
+
 	public static String NewsClassName = "com.software.data.News";
 
-	public static final class SQLiteProperty{
+	public static final class DBProperty{
 		/**
 		 * 数据库名称
 		 */
-		public final static String DBNAME = "collegeClient";
-		
+		public static final String DB_NAME = "icephone.db";//数据库名称
+
 		/**
 		 * 数据库版本
 		 */
-		public static final int DATABASE_VERSION = 6;
-		
+		public static final int DB_VERSION = 1;
+
 		/**
 		 * 数据库表名称
 		 */
-		 public static final String TABLE_NEWS = "news";
+		public static final String TBL_NAME = "news";
 		/**
 		 * 创建news数据库sql
 		 */
-		public static final String TabelNews_CREATE =
-		        "CREATE TABLE IF NOT EXISTS news (_id integer primary key, "
-		        	+"typeId integer not null, "+"adminId integer, "+" newsContent Text,"
-		        		+ "newsTitle VARCHAR not null, newsTime VARCHAR, seeNum integer,subType integer);";
+		public static final String CREATE_TBL = " create table "
+				+ " news(newId integer primary key not null,typeId int not null,adminId id not null,newsTitle varchar(50) not null"
+				+",newsContent text not null,newsTime datetime not null,seeNum int,thumbnail varchar(50),subType int);";
 		/**
 		 * 创建文章主题数据库sql
 		 */
-		public static final String TabelPicture_CREATE =
+		/*public static final String TabelPicture_CREATE =
 				"CREATE TABLE IF NOT EXISTS pictures (_id integer primary key autoincrement, " +
-				"picUrl VARCHAR not null, _newsId integer);";
+				"picUrl VARCHAR not null, _newsId integer);";*/
 	}
-	
+
 	private static class CourseSystem{
-		final static String courseUrl = "http://222.194.15.1:7777/zhxt_bks/zhxt_bks.html";
-		
+		//final static String courseUrl = "http://222.194.15.1:7777/zhxt_bks/zhxt_bks.html";
+
 	}
-	 
+
 	/**
-	 * 
+	 *
 	 */
 	public final static String TAB_TAG_NEWS="tab_tag_news";
 	public final static String TAB_TAG_Notify="tab_tag_notify";
 	public final static String TAB_TAG_CALENDAR="tab_tag_calendar";
 	public final static String TAB_TAG_SEARCH="tab_tag_search";
 	public final static String TAB_TAG_MORE="tab_tag_more";
-	
+
 	/**
 	 * Webservice的命名空间http://software.hitwh.edu.cn/
 	 */
 	public final static String namespaceOfWebservice = "http://software.hitwh.edu.cn/";
-	
-	
+
+
 	/**
 	 * Webservice的函数
 	 */
@@ -69,7 +153,7 @@ public final class Constant {
 		 * 一次从webservice获取的数据条数
 		 */
 		public final static int GETNewsNumber = 10;
-		
+
 		/**
 		 * 查看时候需要更新
 		 */
@@ -79,30 +163,30 @@ public final class Constant {
 		 * 获取更新数据方法
 		 */
 		public final static String GetUpdateNews = "getUpdateNews";
-		
+
 		/**
 		 * 获取之前的数据
 		 */
 		public final static String getPreviousNew = "getPreviousNew";
-		
+
 		/**
 		 * 根据id获取新闻
 		 */
 		public final static String getNewsByid = "getNewsByid";
-		
+
 		/**
 		 * 获取最新的新闻
 		 */
 		public final static String getTopNewsByTypeid = "getTopNewsByTypeid";
 	}
-	
-	
+
+
 	/**
 	 * 10.0.2.2/是在虚拟机上的地址http://10.0.2.2/collegeWeb/Service1.asmx
 	 * http://software.hitwh.edu.cn/CollegeWebService/Service1.asmx
 	 */
 	public final static String enterPoint = "http://software.hitwh.edu.cn/CollegeWebService/Service1.asmx?AspxAutoDetectCookieSupport=1";
-	
+
 	public static class IntentFilterAction{
 		public static String DATALOADED = "software.data.loadFinished";
 	}
@@ -111,7 +195,7 @@ public final class Constant {
 	 */
 	public static final String KEY_ID = "_id";
 	public static final String KEY_TITLE = "newsTitle";
-    public static final String KEY_TIME = "newsTime";
-    public static final String KEY_SEENUM = "seeNum";
-    public static final String KEY_NewsID = "newsId";
+	public static final String KEY_TIME = "newsTime";
+	public static final String KEY_SEENUM = "seeNum";
+	public static final String KEY_NewsID = "newsId";
 }

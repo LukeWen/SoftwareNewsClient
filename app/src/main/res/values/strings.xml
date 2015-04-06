@@ -10,4 +10,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_section4">Related</string>
     <string name="check_update">Check Update</string>
+    <string name="disconnecting">Disconnecting</string>
+    <string name="refresh">Refresh</string>
 </resources>
