@@ -73,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
             e.printStackTrace();
             db = getWritableDatabase();
         }
-        Cursor c =  db.query(Constant.DBProperty.TBL_NAME, null, "typeId=?", new String[]{String.valueOf(type)}, null, null, "newId desc", "0,10");
+        Cursor c = db.query(Constant.DBProperty.TBL_NAME, null, "typeId=?", new String[]{String.valueOf(type)}, null, null, "newId desc", "0,10");
         //db.close();
         return c;
     }

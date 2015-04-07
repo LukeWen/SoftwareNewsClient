@@ -1,14 +1,18 @@
 package com.icephone.softwarenewsclient.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     Fragment fragmentNews;
     Fragment fragmentNotice;
     Fragment fragmentRelated;
+    NetWorkReceiver netWorkReceiver;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -76,18 +81,32 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        netWorkReceiver = new NetWorkReceiver();
+
+        registerReceiver(netWorkReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(netWorkReceiver);
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem actionSettings = menu.findItem(R.id.action_disconnecting);
+        MenuItem actionDisconnectting = menu.findItem(R.id.action_disconnecting);
+        MenuItem actionRefresh = menu.findItem(R.id.action_refresh);
+        Constant.SERVICE_WORKING = Constant.isNetworkAvailable(this);
         if(Constant.SERVICE_WORKING) {
-            actionSettings.setVisible(true);
+            actionDisconnectting.setVisible(false);
+            actionRefresh.setVisible(true);
         }else{
-            actionSettings.setVisible(false); }
+            actionDisconnectting.setVisible(true);
+            actionRefresh.setVisible(false);
+        }
         return true;
     }
 
@@ -109,8 +128,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 return true;
             case R.id.action_refresh:
                 Toast.makeText(this,getResources().getString(R.string.refresh),Toast.LENGTH_SHORT).show();
-                Constant.SERVICE_WORKING = true;
-                supportInvalidateOptionsMenu();
                 return true;
         }
 
@@ -130,6 +147,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    private void refreshActionBar() {
+        super.supportInvalidateOptionsMenu();
     }
 
     /**
@@ -183,6 +204,18 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                     return getString(R.string.title_section4);
             }
             return null;
+        }
+    }
+
+    public class NetWorkReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Constant.SERVICE_WORKING = Constant.isNetworkAvailable(getApplication());
+            if (!Constant.SERVICE_WORKING) {
+                Toast.makeText(getApplication(), "网络连接已断开，当前为离线模式！", Toast.LENGTH_SHORT).show();
+            }
+
+            refreshActionBar();
         }
     }
 }

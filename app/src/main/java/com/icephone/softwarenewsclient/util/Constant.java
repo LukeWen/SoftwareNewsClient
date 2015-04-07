@@ -3,6 +3,7 @@ package com.icephone.softwarenewsclient.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.icephone.softwarenewsclient.db.DBHelper;
@@ -56,7 +57,7 @@ public final class Constant {
     public static long PERIOD = 3;
     public static int FRAGMENT_NUMBER_OF_MAIN = 4;
     public static TimeUnit UNIT = TimeUnit.SECONDS;
-    public static boolean SERVICE_WORKING = false;
+    public static boolean SERVICE_WORKING = true;
     public static int HOME_FIRST_LOAD_NUM = 4;
     public static long CLICKTIME = 0;
     public static boolean FLAG = false;
@@ -80,6 +81,7 @@ public final class Constant {
         return 0;
     }
 
+
     public static Boolean DBInjectionAttack(String str) {
         String s = str.replaceAll("(?u)drop", "DROP");
         s = s.replaceAll("(?u)delete", "DELETE");
@@ -95,6 +97,71 @@ public final class Constant {
             NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
             if (mNetworkInfo != null) {
                 return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param context
+     * @return
+     */
+    public static boolean isWifiConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mWiFiNetworkInfo = mConnectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (mWiFiNetworkInfo != null) {
+                return mWiFiNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param context
+     * @return
+     */
+    public static boolean isMobileConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mMobileNetworkInfo = mConnectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            if (mMobileNetworkInfo != null) {
+                return mMobileNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    public static int getConnectedType(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null && mNetworkInfo.isAvailable()) {
+                return mNetworkInfo.getType();
+            }
+        }
+        return -1;
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity == null) {
+            Log.i("NetWorkState", "Unavailable");
+            return false;
+        } else {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        Log.i("NetWorkState", "Available");
+                        return true;
+                    }
+                }
             }
         }
         return false;

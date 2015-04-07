@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.0"
     defaultConfig {
         applicationId "com.icephone.softwarenewsclient"
-        minSdkVersion 7
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -25,6 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
-    compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/ksoap2-android-assembly-3.0dependencies.jar')
 }

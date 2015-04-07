@@ -1,9 +1,6 @@
 package com.icephone.softwarenewsclient.service;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.icephone.softwarenewsclient.modle.News;
 import com.icephone.softwarenewsclient.util.Constant;
 
 import org.ksoap2.SoapEnvelope;
@@ -13,22 +10,20 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.List;
 
 
 /**
  * Created by 温程元 on 13-12-3.
  */
 public class WebService {
-    private static Gson gson;
+    //private static Gson gson;
 
     public static String getNewById(int id) {
-        // TODO Auto-generated method stub
         SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_NEWS);//调用webservice的方法
         request.addProperty("newsId", id);//向findUserByName传入name参数
         request.addProperty("phone", 1);//向findUserByName传入name参数
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                SoapEnvelope.VER11);// 版本
+                SoapEnvelope.VER12);// 版本
 
         envelope.bodyOut = request;
         envelope.dotNet = true;
@@ -58,7 +53,6 @@ public class WebService {
     }
 
     public static String getNewsByIdAndType(int id, int type) {
-        // TODO Auto-generated method stub
         SoapObject request = new SoapObject(Constant.NAMESPACE, Constant.GET_TYPE_NEWS);//调用webservice的方法
         request.addProperty("newsId", id);//向findUserByName传入name参数
         request.addProperty("type", type);//向findUserByName传入name参数
@@ -386,28 +380,28 @@ public class WebService {
         return json;
     }
 
-    public static News returnNews(String json) {
-        try {
-            if (json.equals("null") || json == null) return null;
-            gson = new Gson();
-            return gson.fromJson(json, News.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static List<News> returnNewses(String json) {
-        try {
-            if (json.equals("null") || json == null) return null;
-            gson = new Gson();
-            return gson.fromJson(json, new TypeToken<List<News>>() {
-            }.getType());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public static News returnNews(String json) {
+//        try {
+//            if (json.equals("null") || json == null) return null;
+//            gson = new Gson();
+//            return gson.fromJson(json, News.class);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+//
+//    public static List<News> returnNewses(String json) {
+//        try {
+//            if (json.equals("null") || json == null) return null;
+//            gson = new Gson();
+//            return gson.fromJson(json, new TypeToken<List<News>>() {
+//            }.getType());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
     /*public static boolean getImage(String imgStr)
     {//对字节数组字符串进行Base64解码并生成图片
         if (imgStr == null) //图像数据为空

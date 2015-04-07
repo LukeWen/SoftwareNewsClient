@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,7 +47,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             viewPager.setCurrentItem(currentItem);// 切换当前显示的图片
         }
 
-        ;
     };
 
     @Override
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         tv_title.setText(titles[0]);
 
         viewPager = (ViewPager) getView().findViewById(R.id.vp);
-        viewPager.setAdapter(new MyAdapter());// 设置填充ViewPager页面的适配器
+        viewPager.setAdapter(new MyPageAdapter());// 设置填充ViewPager页面的适配器
         // 设置一个监听器，当ViewPager中的页面改变时调用
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
         viewPager.setOnTouchListener(new View.OnTouchListener() {
@@ -109,6 +110,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             }
 
         });
+        initVertical();
     }
 
 
@@ -158,6 +160,27 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         // 当Activity不可见的时候停止切换
         scheduledExecutorService.shutdown();
         super.onStop();
+    }
+
+    public void initVertical() {
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.latestList);
+
+        // 创建一个线性布局管理器
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        // 默认是Vertical，可以不写
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // 设置布局管理器
+        recyclerView.setLayoutManager(layoutManager);
+
+        // 创建数据集
+        String[] dataset = new String[100];
+        for (int i = 0; i < dataset.length; i++) {
+            dataset[i] = "item" + i;
+        }
+        // 创建Adapter，并指定数据集
+        MyAdapter adapter = new MyAdapter(dataset);
+        // 设置Adapter
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -211,7 +234,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
      *
      * @author Administrator
      */
-    private class MyAdapter extends PagerAdapter {
+    private class MyPageAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
