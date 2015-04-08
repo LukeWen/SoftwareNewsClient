@@ -14,4 +14,7 @@
     <string name="pref_title_new_message_notifications">开启通知</string>
     <string name="disconnecting">失去连接</string>
     <string name="refresh">刷新</string>
+    <string name="action_search">搜索</string>
+    <string name="search_result">搜索结果</string>
+    <string name="search_hint">搜索标题</string>
 </resources>

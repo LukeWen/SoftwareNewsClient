@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.icephone.softwarenewsclient.db.DBHelper;
+import com.icephone.softwarenewsclient.service.WebService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,9 +16,8 @@ public final class Constant {
     /**
      * SOAP相关
      */
-    public static final String NAMESPACE = "http://software.hitwh.edu.cn/webservices/";//http://software.hitwh.edu.cn/webservice/
-    //public static final String URL = "http://192.168.1.123:81/service.asmx";
-    public static final String URL = "http://software.hitwh.edu.cn/softwareservice/service.asmx?wsdl";
+    public static final String NAMESPACE = "http://tempuri.org/";
+    public static final String URL = "http://software.hitwh.edu.cn/ServiceNews.asmx?wsdl";
     public static final String METHOD_NAME = "getCurrentNews";
     public static final String GET_NEWS = "getNewById";
     public static final String GET_TYPE_NEWS = "getNewsByIdAndType";
@@ -25,7 +25,7 @@ public final class Constant {
     public static final String SEARCH_TITLE = "searchTitle";
     public static final String SEARCH_CONTANT = "searchContent";
     public static final String GET_ADVICE = "getAdvice";
-    //public static final String SOAP_ACTION = "http://software.hitwh.edu.cn/service.asmx";
+    public static final String TEST = "HelloWorld";
     public static final int FIRST_LOAD_NUM = 10;
     public static final int SEARCH_TIME = 20;
     /**
@@ -39,7 +39,7 @@ public final class Constant {
     /**
      * Webservice的命名空间http://software.hitwh.edu.cn/
      */
-    public final static String namespaceOfWebservice = "http://software.hitwh.edu.cn/";
+    public final static String namespaceOfWebservice = "http://software.hitwh.edu.cn/ServiceNews.asmx";
     /**
      * 10.0.2.2/是在虚拟机上的地址http://10.0.2.2/collegeWeb/Service1.asmx
      * http://software.hitwh.edu.cn/CollegeWebService/Service1.asmx
@@ -57,7 +57,8 @@ public final class Constant {
     public static long PERIOD = 3;
     public static int FRAGMENT_NUMBER_OF_MAIN = 4;
     public static TimeUnit UNIT = TimeUnit.SECONDS;
-    public static boolean SERVICE_WORKING = true;
+    public static boolean SERVICE_WORKING = false;
+    public static boolean NETWORK_WORKING = false;
     public static int HOME_FIRST_LOAD_NUM = 4;
     public static long CLICKTIME = 0;
     public static boolean FLAG = false;
@@ -167,6 +168,24 @@ public final class Constant {
         return false;
     }
 
+    public static void serviceAvailableTest(Context context) {
+        try {
+            Thread t = new Thread() {
+                @Override
+                public void run() {
+                    String test = WebService.test();
+                    WebService.SearchNewsByTitle("2012");
+                    if (test != null && test.equals("Hello World")) {
+                        Constant.SERVICE_WORKING = true;
+                    }
+                }
+            };
+            t.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static final boolean FINSH(int keyCode, KeyEvent event, Context c) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             DBHelper helper = new DBHelper(c);
@@ -246,6 +265,7 @@ public final class Constant {
          * 获取最新的新闻
          */
         public final static String getTopNewsByTypeid = "getTopNewsByTypeid";
+
     }
 
     public static class IntentFilterAction {

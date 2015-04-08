@@ -24,6 +24,10 @@ import com.icephone.softwarenewsclient.util.Constant;
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    ViewPager mViewPager;
+    /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
@@ -31,17 +35,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
-    Fragment fragmentHome;
-    Fragment fragmentNews;
-    Fragment fragmentNotice;
-    Fragment fragmentRelated;
-    NetWorkReceiver netWorkReceiver;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    ViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Fragment fragmentHome;
+    private Fragment fragmentNews;
+    private Fragment fragmentNotice;
+    private Fragment fragmentRelated;
+    private NetWorkReceiver netWorkReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +82,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
         netWorkReceiver = new NetWorkReceiver();
 
+
         registerReceiver(netWorkReceiver,
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
@@ -99,14 +99,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem actionDisconnectting = menu.findItem(R.id.action_disconnecting);
         MenuItem actionRefresh = menu.findItem(R.id.action_refresh);
-        Constant.SERVICE_WORKING = Constant.isNetworkAvailable(this);
-        if(Constant.SERVICE_WORKING) {
+        Constant.NETWORK_WORKING = Constant.isNetworkAvailable(this);
+        if (Constant.NETWORK_WORKING) {
             actionDisconnectting.setVisible(false);
             actionRefresh.setVisible(true);
         }else{
             actionDisconnectting.setVisible(true);
             actionRefresh.setVisible(false);
         }
+
         return true;
     }
 
@@ -129,6 +130,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             case R.id.action_refresh:
                 Toast.makeText(this,getResources().getString(R.string.refresh),Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.action_search:
+                Intent intent = new Intent();
+                intent.setClass(this, SearchResultActvity.class);
+                startActivity(intent);
+//                Toast.makeText(this,getResources().getString(R.string.action_search),Toast.LENGTH_SHORT).show();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,6 +157,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
     private void refreshActionBar() {
+        Constant.serviceAvailableTest(this);
         super.supportInvalidateOptionsMenu();
     }
 
@@ -210,8 +218,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public class NetWorkReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Constant.SERVICE_WORKING = Constant.isNetworkAvailable(getApplication());
-            if (!Constant.SERVICE_WORKING) {
+
+
+            Constant.NETWORK_WORKING = Constant.isNetworkAvailable(getApplication());
+            if (!Constant.NETWORK_WORKING) {
                 Toast.makeText(getApplication(), "网络连接已断开，当前为离线模式！", Toast.LENGTH_SHORT).show();
             }
 
