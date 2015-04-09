@@ -36,15 +36,7 @@ public final class Constant {
     public final static String TAB_TAG_CALENDAR = "tab_tag_calendar";
     public final static String TAB_TAG_SEARCH = "tab_tag_search";
     public final static String TAB_TAG_MORE = "tab_tag_more";
-    /**
-     * Webservice的命名空间http://software.hitwh.edu.cn/
-     */
-    public final static String namespaceOfWebservice = "http://software.hitwh.edu.cn/ServiceNews.asmx";
-    /**
-     * 10.0.2.2/是在虚拟机上的地址http://10.0.2.2/collegeWeb/Service1.asmx
-     * http://software.hitwh.edu.cn/CollegeWebService/Service1.asmx
-     */
-    public final static String enterPoint = "http://software.hitwh.edu.cn/CollegeWebService/Service1.asmx?AspxAutoDetectCookieSupport=1";
+
     /**
      * 所有表字段
      */
@@ -57,17 +49,11 @@ public final class Constant {
     public static long PERIOD = 3;
     public static int FRAGMENT_NUMBER_OF_MAIN = 4;
     public static TimeUnit UNIT = TimeUnit.SECONDS;
-    public static boolean SERVICE_WORKING = false;
-    public static boolean NETWORK_WORKING = false;
+    public static boolean IS_SERVICE_WORKING = false;
+    public static boolean IS_NETWORK_WORKING = false;
     public static int HOME_FIRST_LOAD_NUM = 4;
     public static long CLICKTIME = 0;
     public static boolean FLAG = false;
-    /**
-     * 是否连接网络
-     */
-    public static boolean isHasNetWork = false;
-    public static boolean isHasData = false;
-    public static String NewsClassName = "com.software.data.News";
     private static int counter = 0;
 
     public static int countStr(String str1, String str2) {
@@ -176,7 +162,7 @@ public final class Constant {
                     String test = WebService.test();
                     WebService.SearchNewsByTitle("2012");
                     if (test != null && test.equals("Hello World")) {
-                        Constant.SERVICE_WORKING = true;
+                        Constant.IS_SERVICE_WORKING = true;
                     }
                 }
             };

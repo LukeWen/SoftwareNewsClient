@@ -99,8 +99,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem actionDisconnectting = menu.findItem(R.id.action_disconnecting);
         MenuItem actionRefresh = menu.findItem(R.id.action_refresh);
-        Constant.NETWORK_WORKING = Constant.isNetworkAvailable(this);
-        if (Constant.NETWORK_WORKING) {
+        Constant.IS_NETWORK_WORKING = Constant.isNetworkAvailable(this);
+        if (Constant.IS_NETWORK_WORKING) {
             actionDisconnectting.setVisible(false);
             actionRefresh.setVisible(true);
         }else{
@@ -132,7 +132,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 return true;
             case R.id.action_search:
                 Intent intent = new Intent();
-                intent.setClass(this, SearchResultActvity.class);
+                intent.setClass(this, SearchActivity.class);
                 startActivity(intent);
 //                Toast.makeText(this,getResources().getString(R.string.action_search),Toast.LENGTH_SHORT).show();
                 return true;
@@ -220,8 +220,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public void onReceive(Context context, Intent intent) {
 
 
-            Constant.NETWORK_WORKING = Constant.isNetworkAvailable(getApplication());
-            if (!Constant.NETWORK_WORKING) {
+            Constant.IS_NETWORK_WORKING = Constant.isNetworkAvailable(getApplication());
+            if (!Constant.IS_NETWORK_WORKING) {
                 Toast.makeText(getApplication(), "网络连接已断开，当前为离线模式！", Toast.LENGTH_SHORT).show();
             }
 

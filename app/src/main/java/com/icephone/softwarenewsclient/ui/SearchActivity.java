@@ -3,8 +3,10 @@ package com.icephone.softwarenewsclient.ui;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.icephone.softwarenewsclient.R;
@@ -12,20 +14,28 @@ import com.icephone.softwarenewsclient.R;
 /**
  * Created by 温程元 on 2015/4/8.
  */
-public class SearchResultActvity extends ActionBarActivity {
+public class SearchActivity extends ActionBarActivity {
     private TextView tv = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.basic_test);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.show();
         tv = (TextView) findViewById(R.id.textViewId);
         tv.setText("");
 
         showInfo("onCreate() is called");
         doSearchQuery(getIntent());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        return true;
     }
 
 
