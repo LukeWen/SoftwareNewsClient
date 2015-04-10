@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import com.icephone.softwarenewsclient.R;
 import com.icephone.softwarenewsclient.util.Constant;
 
 
-public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
+public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, SearchView.OnQueryTextListener {
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -107,6 +108,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             actionDisconnectting.setVisible(true);
             actionRefresh.setVisible(false);
         }
+        // 获取SearchView对象
+//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        if(searchView == null){
+//            Log.e("SearchView","Fail to get Search View.");
+//            return true;
+//        }
+//        searchView.setIconifiedByDefault(true); // 缺省值就是true，可能不专门进行设置，false和true的效果图如下，true的输入框更大
+//        searchView.setOnQueryTextListener(this);
 
         return true;
     }
@@ -134,7 +143,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 Intent intent = new Intent();
                 intent.setClass(this, SearchActivity.class);
                 startActivity(intent);
-//                Toast.makeText(this,getResources().getString(R.string.action_search),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.action_search), Toast.LENGTH_SHORT).show();
                 return true;
         }
 
@@ -159,6 +168,16 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private void refreshActionBar() {
         Constant.serviceAvailableTest(this);
         super.supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 
     /**

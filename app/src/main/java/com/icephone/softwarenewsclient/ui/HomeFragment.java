@@ -54,11 +54,11 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         super.onViewCreated(view, savedInstanceState);
         imageResId = new int[]{R.mipmap.h1, R.mipmap.h2, R.mipmap.h3, R.mipmap.h4, R.mipmap.h5};
         titles = new String[imageResId.length];
-        titles[0] = "标题1";
-        titles[1] = "标题2";
-        titles[2] = "标题3";
-        titles[3] = "标题4";
-        titles[4] = "标题5";
+        titles[0] = "校企合作签约仪式";
+        titles[1] = "ComeToUs产学结合签字仪式";
+        titles[2] = "软件学院机房";
+        titles[3] = "国家示范性软件学院";
+        titles[4] = "校企合作研讨会";
 
         imageViews = new ArrayList<>();
 
