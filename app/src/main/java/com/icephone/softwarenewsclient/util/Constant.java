@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.icephone.softwarenewsclient.db.DBHelper;
-import com.icephone.softwarenewsclient.service.WebService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -50,6 +49,7 @@ public final class Constant {
     public static int FRAGMENT_NUMBER_OF_MAIN = 4;
     public static TimeUnit UNIT = TimeUnit.SECONDS;
     public static boolean IS_SERVICE_WORKING = false;
+    public static String SERVICE_STATE = "SERVICE_STATE";
     public static boolean IS_NETWORK_WORKING = false;
     public static int HOME_FIRST_LOAD_NUM = 4;
     public static long CLICKTIME = 0;
@@ -138,39 +138,28 @@ public final class Constant {
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity == null) {
-            Log.i("NetWorkState", "Unavailable");
+            Constant.IS_NETWORK_WORKING = false;
+            Log.i("NetWorkState", "NetWork Unavailable");
             return false;
         } else {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null) {
                 for (int i = 0; i < info.length; i++) {
                     if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        Log.i("NetWorkState", "Available");
+                        Log.i("NetWorkState", "NetWork Available");
+                        Constant.IS_NETWORK_WORKING = true;
+                        ServiceAvailableTestThread serviceAvailableTestThread = new ServiceAvailableTestThread(context);
+                        serviceAvailableTestThread.start();
                         return true;
                     }
                 }
             }
         }
+        Constant.IS_NETWORK_WORKING = false;
+        Log.i("NetWorkState", "NetWork Unavailable");
         return false;
     }
 
-    public static void serviceAvailableTest(Context context) {
-        try {
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    String test = WebService.test();
-                    //WebService.SearchNewsByTitle("2012");
-                    if (test != null && test.equals("Hello World")) {
-                        Constant.IS_SERVICE_WORKING = true;
-                    }
-                }
-            };
-            t.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static final boolean FINSH(int keyCode, KeyEvent event, Context c) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {

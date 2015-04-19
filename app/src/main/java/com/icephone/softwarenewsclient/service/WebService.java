@@ -88,7 +88,7 @@ public class WebService {
         envelope.setOutputSoapObject(request);
 
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
-        //trans.debug = true ;	// 使用调试功能
+        //trans.debug = true ;// 使用调试功能
         try {
             trans.call(Constant.NAMESPACE + Constant.TEST, envelope);
         } catch (IOException e) {

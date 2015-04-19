@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private Fragment fragmentNotice;
     private Fragment fragmentRelated;
     private NetWorkReceiver netWorkReceiver;
+    private ServiceStateReceiver serviceStateReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +84,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                             .setTabListener(this));
         }
         netWorkReceiver = new NetWorkReceiver();
-
-
         registerReceiver(netWorkReceiver,
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        serviceStateReceiver = new ServiceStateReceiver();
+        registerReceiver(serviceStateReceiver,
+                new IntentFilter(Constant.SERVICE_STATE));
+        Constant.isNetworkAvailable(this);
     }
 
     @Override
@@ -100,8 +104,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem actionDisconnectting = menu.findItem(R.id.action_disconnecting);
         MenuItem actionRefresh = menu.findItem(R.id.action_refresh);
-        Constant.IS_NETWORK_WORKING = Constant.isNetworkAvailable(this);
-        if (Constant.IS_NETWORK_WORKING) {
+
+        if (Constant.IS_NETWORK_WORKING && Constant.IS_SERVICE_WORKING) {
             actionDisconnectting.setVisible(false);
             actionRefresh.setVisible(true);
         }else{
@@ -166,7 +170,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
     private void refreshActionBar() {
-        Constant.serviceAvailableTest(this);
         super.supportInvalidateOptionsMenu();
     }
 
@@ -237,14 +240,28 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public class NetWorkReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.i("NetWorkReceiver", "NetWorkReceiver");
+            if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+                Constant.isNetworkAvailable(getApplication());
+                if (!Constant.IS_NETWORK_WORKING) {
+                    Toast.makeText(getApplication(), "您的设备未打开网络连接，当前为离线模式！", Toast.LENGTH_SHORT).show();
+                }
+                refreshActionBar();
+            }
+        }
+    }
 
-
-            Constant.IS_NETWORK_WORKING = Constant.isNetworkAvailable(getApplication());
-            if (!Constant.IS_NETWORK_WORKING) {
-                Toast.makeText(getApplication(), "网络连接已断开，当前为离线模式！", Toast.LENGTH_SHORT).show();
+    public class ServiceStateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i("ServiceStateReceiver", "ServiceStateReceiver");
+            if (intent.getAction().equals(Constant.SERVICE_STATE)) {
+                if (!(Boolean) intent.getExtras().get("ServiceState")) {
+                    Toast.makeText(getApplication(), "服务器暂无响应，当前为离线模式！", Toast.LENGTH_SHORT).show();
+                }
+                refreshActionBar();
             }
 
-            refreshActionBar();
         }
     }
 }
