@@ -160,7 +160,7 @@ public final class Constant {
                 @Override
                 public void run() {
                     String test = WebService.test();
-                    WebService.SearchNewsByTitle("2012");
+                    //WebService.SearchNewsByTitle("2012");
                     if (test != null && test.equals("Hello World")) {
                         Constant.IS_SERVICE_WORKING = true;
                     }
