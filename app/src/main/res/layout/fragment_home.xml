@@ -67,10 +67,15 @@
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/latestList"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/latestList"
         android:layout_below="@+id/fl"
-        android:text="@string/title_section1" />
+        android:gravity="center"
+        android:text="@string/latest_news"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/latestList"

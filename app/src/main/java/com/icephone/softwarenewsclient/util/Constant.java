@@ -27,6 +27,7 @@ public final class Constant {
     public static final String TEST = "HelloWorld";
     public static final int FIRST_LOAD_NUM = 10;
     public static final int SEARCH_TIME = 20;
+
     /**
      *
      */
@@ -173,6 +174,14 @@ public final class Constant {
             return false;
     }
 
+    public enum WebserviceMethod {
+        GetCategoryName, GetInformation, GetInformationName, GetNewsDetail, GetNewsPageCountCategory,
+        GetNewsPageCountOutline, GetNewsSizeByArticle, GetNewsSizeByTitle, GetNewsSizeByTitleAndArticle,
+        GetOutlineName, GetResourcesPageCount, GetResourcesWithPageNumber,
+        GetSingleCategoryNewsListWithPageNumber, GetSingleOutlineNewsListWithPageNumber,
+        SearchNewsByArticle, SearchNewsByTitle, SearchNewsByTitleAndArticle
+    }
+
     public static final class DBProperty {
         /**
          * 数据库名称
@@ -200,47 +209,6 @@ public final class Constant {
         /*public static final String TabelPicture_CREATE =
                 "CREATE TABLE IF NOT EXISTS pictures (_id integer primary key autoincrement, " +
 				"picUrl VARCHAR not null, _newsId integer);";*/
-    }
-
-    private static class CourseSystem {
-        //final static String courseUrl = "http://222.194.15.1:7777/zhxt_bks/zhxt_bks.html";
-
-    }
-
-    /**
-     * Webservice的函数
-     */
-    public final static class WebserviceMethodName {
-        /**
-         * 一次从webservice获取的数据条数
-         */
-        public final static int GETNewsNumber = 10;
-
-        /**
-         * 查看时候需要更新
-         */
-        public final static String CheckUpdate = "GetMaxNewId";
-
-        /**
-         * 获取更新数据方法
-         */
-        public final static String GetUpdateNews = "getUpdateNews";
-
-        /**
-         * 获取之前的数据
-         */
-        public final static String getPreviousNew = "getPreviousNew";
-
-        /**
-         * 根据id获取新闻
-         */
-        public final static String getNewsByid = "getNewsByid";
-
-        /**
-         * 获取最新的新闻
-         */
-        public final static String getTopNewsByTypeid = "getTopNewsByTypeid";
-
     }
 
     public static class IntentFilterAction {

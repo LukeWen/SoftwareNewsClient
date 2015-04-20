@@ -14,6 +14,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.icephone.softwarenewsclient.R;
+import com.icephone.softwarenewsclient.util.Constant;
+import com.icephone.softwarenewsclient.util.WebServiceThread;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 温程元 on 2015/4/8.
@@ -47,6 +52,12 @@ public class SearchActivity extends ActionBarActivity {
             @Override
             public boolean onQueryTextChange(String queryText) {
                 showInfo("Textting:" + queryText);
+                Map<String, Object> content = new HashMap<>();
+                content.put("str", queryText);
+                WebServiceThread webServiceThread =
+                        new WebServiceThread(Constant.WebserviceMethod.SearchNewsByTitle, content);
+                webServiceThread.start();
+
                 return true;
             }
 

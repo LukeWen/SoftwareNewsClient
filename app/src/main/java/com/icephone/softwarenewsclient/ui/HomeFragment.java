@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.icephone.softwarenewsclient.R;
 import com.icephone.softwarenewsclient.util.Constant;
+import com.icephone.softwarenewsclient.util.WebServiceThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,8 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             }
 
         });
+        WebServiceThread webServiceThread = new WebServiceThread(Constant.WebserviceMethod.GetNewsDetail, null);
+        webServiceThread.start();
         initVertical();
     }
 

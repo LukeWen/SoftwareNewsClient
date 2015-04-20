@@ -1,131 +1,106 @@
 package com.icephone.softwarenewsclient.modle;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author shen
  *         news表，学院新闻表
  */
-public class News implements Serializable {
-    private static final long serialVersionUID = 1;
+public class News {
     /**
-     * 物理主键
+     * 新闻id
      */
-    private int newId;
+    private int id;
     /**
-     * 类型 ：
-     * 0 最新新闻
-     * 3 热点新闻
-     * 4 通知公告
-     * 5 非新闻类
+     * 类别id
      */
-    private int typeId;
-    /**
-     * 作者，默认全部为0
-     */
-    private int adminId;
+    private int category_id;
     /**
      * 新闻标题
      */
-    private String newsTitle;
+    private String title;
     /**
      * 新闻内容
      */
-    private String newsContent;
+    private String article;
     /**
      * 新闻时间
      */
-    private String newsTime;
+    private Date update_time;
     /**
-     * 访问次数
+     * 新闻浏览量
      */
-    private int seeNum;
+    private int page_view;
     /**
-     *
+     * 管理员id
      */
-    private String thumbnail;
+    private int supervisor_id;
     /**
-     * 细节类型 ：
-     * 0 普通新闻
-     * 14 奖助学金公示
-     * 17 招生简章
-     * 22 通知，公示
-     * 23 俱乐部招聘
-     * 25 招聘
-     * 5 教师信息
+     * 管理者别名
      */
-    private int subType;
+    private String alias;
 
-    //private List<>
-    public int getNewId() {
-        return newId;
+    public int getId() {
+        return id;
     }
 
-    public void setNewId(int newId) {
-        this.newId = newId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getTypeId() {
-        return typeId;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
-    public int getAdminId() {
-        return adminId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNewsContent() {
-        return newsContent;
+    public String getArticle() {
+        return article;
     }
 
-    public void setNewsContent(String newsContent) {
-        this.newsContent = newsContent;
+    public void setArticle(String article) {
+        this.article = article;
     }
 
-    public String getNewsTitle() {
-        return newsTitle;
+    public Date getUpdate_time() {
+        return update_time;
     }
 
-    public void setNewsTitle(String newsTitle) {
-        this.newsTitle = newsTitle;
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
     }
 
-    public String getNewsTime() {
-        return newsTime;
+    public int getPage_view() {
+        return page_view;
     }
 
-    public void setNewsTime(String newsTime) {
-        this.newsTime = newsTime;
+    public void setPage_view(int page_view) {
+        this.page_view = page_view;
     }
 
-    public int getSeeNum() {
-        return seeNum;
+    public int getSupervisor_id() {
+        return supervisor_id;
     }
 
-    public void setSeeNum(int seeNum) {
-        this.seeNum = seeNum;
+    public void setSupervisor_id(int supervisor_id) {
+        this.supervisor_id = supervisor_id;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public int getSubType() {
-        return subType;
-    }
-
-    public void setSubType(int subType) {
-        this.subType = subType;
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 }

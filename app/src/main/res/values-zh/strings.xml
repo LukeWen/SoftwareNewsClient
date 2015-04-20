@@ -17,4 +17,5 @@
     <string name="action_search">搜索</string>
     <string name="search">搜索</string>
     <string name="search_hint">搜索标题</string>
+    <string name="latest_news">最新消息</string>
 </resources>

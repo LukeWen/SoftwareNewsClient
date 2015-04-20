@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -240,7 +239,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public class NetWorkReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("NetWorkReceiver", "NetWorkReceiver");
+            //Log.i("NetWorkReceiver", "NetWorkReceiver");
             if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                 Constant.isNetworkAvailable(getApplication());
                 if (!Constant.IS_NETWORK_WORKING) {
@@ -254,14 +253,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public class ServiceStateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("ServiceStateReceiver", "ServiceStateReceiver");
+            //Log.i("ServiceStateReceiver", "ServiceStateReceiver");
             if (intent.getAction().equals(Constant.SERVICE_STATE)) {
                 if (!(Boolean) intent.getExtras().get("ServiceState")) {
                     Toast.makeText(getApplication(), "服务器暂无响应，当前为离线模式！", Toast.LENGTH_SHORT).show();
                 }
                 refreshActionBar();
             }
-
         }
     }
 }

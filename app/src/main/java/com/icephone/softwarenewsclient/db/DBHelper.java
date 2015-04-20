@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.icephone.softwarenewsclient.modle.News;
 import com.icephone.softwarenewsclient.util.Constant;
 
 
@@ -42,25 +41,25 @@ public class DBHelper extends SQLiteOpenHelper {
      *
      * @param news NEWS
      */
-    public void insert(News news) {
-        values.put("newId", news.getNewId());
-        values.put("typeId", news.getTypeId());
-        values.put("adminId", news.getAdminId());
-        values.put("newsContent", news.getNewsContent());
-        values.put("newsTitle", news.getNewsTitle());
-        values.put("newsTime", news.getNewsTime());
-        values.put("seeNum", news.getSeeNum());
-        values.put("thumbnail", news.getThumbnail());
-        values.put("subType", news.getSubType());
-        if (db == null) {
-            SQLiteDatabase db = getWritableDatabase();
-            this.db = db;
-        }
-        Log.e("test", String.valueOf(values.size()) + "##############FROM：insert########################");
-        db.insert(Constant.DBProperty.TBL_NAME, null, values);
-        Log.e("test", "已插入");
-        //db.close();
-    }
+//    public void insert(News news) {
+//        values.put("newId", news.getNewId());
+//        values.put("typeId", news.getTypeId());
+//        values.put("adminId", news.getAdminId());
+//        values.put("newsContent", news.getNewsContent());
+//        values.put("newsTitle", news.getNewsTitle());
+//        values.put("newsTime", news.getNewsTime());
+//        values.put("seeNum", news.getSeeNum());
+//        values.put("thumbnail", news.getThumbnail());
+//        values.put("subType", news.getSubType());
+//        if (db == null) {
+//            SQLiteDatabase db = getWritableDatabase();
+//            this.db = db;
+//        }
+//        Log.e("test", String.valueOf(values.size()) + "##############FROM：insert########################");
+//        db.insert(Constant.DBProperty.TBL_NAME, null, values);
+//        Log.e("test", "已插入");
+//        //db.close();
+//    }
 
     public Cursor query(int type) {
         if (db == null) {

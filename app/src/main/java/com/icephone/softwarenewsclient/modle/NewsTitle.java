@@ -1,55 +1,45 @@
 package com.icephone.softwarenewsclient.modle;
 
+import java.util.Date;
+
 /**
  * Created by 温程元 on 13-12-10.
  */
 public class NewsTitle {
     /**
+     * 新闻id
+     */
+    private int id;
+    /**
      * 新闻标题
      */
-    private String newsTitle;
-    /**
-     * 新闻内容
-     */
-    private String newsContent;
+    private String title;
     /**
      * 新闻时间
      */
-    private String newsTime;
-    /**
-     * 访问次数
-     */
-    private int seeNum;
+    private Date update_time;
 
-    public String getNewsContent() {
-        return newsContent;
+    public int getId() {
+        return id;
     }
 
-    public void setNewsContent(String newsContent) {
-        this.newsContent = newsContent;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNewsTitle() {
-        return newsTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNewsTitle(String newsTitle) {
-        this.newsTitle = newsTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNewsTime() {
-        return newsTime;
+    public Date getUpdate_time() {
+        return update_time;
     }
 
-    public void setNewsTime(String newsTime) {
-        this.newsTime = newsTime;
-    }
-
-    public int getSeeNum() {
-        return seeNum;
-    }
-
-    public void setSeeNum(int seeNum) {
-        this.seeNum = seeNum;
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
     }
 }
