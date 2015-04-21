@@ -12,9 +12,13 @@ public class News {
      */
     private int id;
     /**
-     * 类别id
+     * 小类别id
      */
     private int category_id;
+    /**
+     * 大类别id
+     */
+    private int outline_id;
     /**
      * 新闻标题
      */
@@ -102,5 +106,13 @@ public class News {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public int getOutline_id() {
+        return outline_id;
+    }
+
+    public void setOutline_id(int outline_id) {
+        this.outline_id = outline_id;
     }
 }

@@ -5,12 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.icephone.softwarenewsclient.modle.News;
-import com.icephone.softwarenewsclient.util.Constant;
 
 import java.util.List;
 
 /**
- * Created by 温程元 on 13-12-3.
+ * Created by 温程元 on 13-12-3.Unused
  */
 public class DBManager {
     private DBHelper helper;
@@ -33,11 +32,11 @@ public class DBManager {
         //db.close();
     }
 
-    public void delNews(int id) {
-        if (db == null)
-            db = helper.getWritableDatabase();
-        db.delete(Constant.DBProperty.TBL_NAME, "newId=?", new String[]{String.valueOf(id)});
-    }
+//    public void delNews(int id) {
+//        if (db == null)
+//            db = helper.getWritableDatabase();
+//        db.delete(Constant.DBProperty.TBL_NAME, "newId=?", new String[]{String.valueOf(id)});
+//    }
 
     /**
      * add newses
@@ -60,11 +59,7 @@ public class DBManager {
         }
     }
 
-    /**
-     * query all persons, return list
-     *
-     * @return List<Person>
-     */
+
 //    public List<News> query() {
 //        /*SQLiteDatabase db = helper.getWritableDatabase();
 //        Cursor c = db.query(Constant.DBProperty.TBL_NAME, null, null, null, null, null, null);
@@ -88,11 +83,7 @@ public class DBManager {
 //        return newses;
 //    }
 
-    /**
-     * query all persons, return cursor
-     *
-     * @return Cursor
-     */
+
     public Cursor queryTheCursor() {
         Cursor c = db.rawQuery("SELECT * FROM news", null);
         return c;

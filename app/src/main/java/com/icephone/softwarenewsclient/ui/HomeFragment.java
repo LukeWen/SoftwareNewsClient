@@ -2,6 +2,7 @@ package com.icephone.softwarenewsclient.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,11 +22,14 @@ import com.icephone.softwarenewsclient.util.Constant;
 import com.icephone.softwarenewsclient.util.WebServiceThread;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
+ * SoftwareNewsClient
  * Created by 温程元 on 2015/4/6.
  */
 public class HomeFragment extends Fragment implements ViewPager.OnPageChangeListener {
@@ -38,17 +42,20 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
     private TextView tv_title;
     private int currentItem = 0; // 当前图片的索引号
+    // 切换当前显示的图片
+    private final ThreadLocal<Handler> handler = new ThreadLocal<Handler>() {
+        @Override
+        protected Handler initialValue() {
+            return new Handler() {
+                public void handleMessage(Message msg) {
+                    viewPager.setCurrentItem(currentItem);// 切换当前显示的图片
+                }
+            };
+        }
+    };
     // An ExecutorService that can schedule commands to run after a given delay,
     // or to execute periodically.
     private ScheduledExecutorService scheduledExecutorService;
-
-    // 切换当前显示的图片
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            viewPager.setCurrentItem(currentItem);// 切换当前显示的图片
-        }
-
-    };
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -111,8 +118,15 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             }
 
         });
-        WebServiceThread webServiceThread = new WebServiceThread(Constant.WebserviceMethod.GetNewsDetail, null);
+        Map<String, Object> content = new HashMap<>();
+        content.put("outlineId", 2);
+        WebServiceThread webServiceThread = new WebServiceThread(Constant.WebserviceMethod.GetSingleOutlineNewsListWithPageNumber, content, getActivity());
         webServiceThread.start();
+        Map<String, Object> content2 = new HashMap<>();
+        content2.put("outlineId", 3);
+        WebServiceThread webServiceThread2 = new WebServiceThread(Constant.WebserviceMethod.GetSingleOutlineNewsListWithPageNumber, content2, getActivity());
+        webServiceThread2.start();
+
         initVertical();
     }
 
@@ -197,7 +211,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             synchronized (viewPager) {
 //                System.out.println("currentItem: " + currentItem);
                 currentItem = (currentItem + 1) % imageViews.size();
-                handler.obtainMessage().sendToTarget(); // 通过Handler切换图片
+                handler.get().obtainMessage().sendToTarget(); // 通过Handler切换图片
             }
         }
 

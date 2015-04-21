@@ -3,7 +3,7 @@ package com.icephone.softwarenewsclient.modle;
 import java.util.Date;
 
 /**
- * Created by 温程元 on 13-12-10.
+ * Created by 温程元 on 13-12-10. Unused
  */
 public class NewsTitle {
     /**
