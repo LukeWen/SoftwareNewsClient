@@ -47,17 +47,18 @@ public class SearchActivity extends ActionBarActivity {
         mSearchView.onActionViewExpanded();
         mSearchView.setFocusable(false);
         mSearchView.clearFocus();
-//		mSearchView.setIconifiedByDefault(true);
+//      mSearchView.setIconifiedByDefault(true);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String queryText) {
                 showInfo("Textting:" + queryText);
-                Map<String, Object> content = new HashMap<>();
-                content.put("str", queryText);
-                WebServiceThread webServiceThread =
-                        new WebServiceThread(Constant.WebserviceMethod.SearchNewsByTitle, content);
-                webServiceThread.start();
-
+                if (queryText != null && queryText.length() > 0) {
+                    Map<String, Object> content = new HashMap<>();
+                    content.put("key", queryText);
+                    WebServiceThread webServiceThread =
+                            new WebServiceThread(Constant.WebserviceMethod.SearchNewsByTitle, content, SearchActivity.this);
+                    webServiceThread.start();
+                }
                 return true;
             }
 

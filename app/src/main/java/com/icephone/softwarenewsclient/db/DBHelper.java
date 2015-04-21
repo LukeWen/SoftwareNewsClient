@@ -5,18 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
+import com.icephone.softwarenewsclient.modle.News;
 import com.icephone.softwarenewsclient.util.Constant;
+
+import java.util.List;
 
 
 /**
+ * SoftwareNewsClient
  * Created by 温程元 on 13-11-30.
  */
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private SQLiteDatabase db;
     private ContentValues values = new ContentValues();
 
     public DBHelper(Context c) {
@@ -27,146 +29,135 @@ public class DBHelper extends SQLiteOpenHelper {
     //数据库第一次被创建时onCreate会被调用
     @Override
     public void onCreate(SQLiteDatabase db) {
-        this.db = db;
-        this.db.execSQL(Constant.DBProperty.CREATE_TBL);
-        //this.db.close();
+        db.execSQL(Constant.DBProperty.CREATE_TBL);
     }
 
-    public void open() {
-        this.db = getWritableDatabase();
+
+    public void insertDetail(News news) {
+        values.put("id", news.getId());
+        values.put("category_id", news.getCategory_id());
+        values.put("title", news.getTitle());
+        values.put("article", news.getArticle());
+        values.put("update_time", news.getUpdate_time().toString());
+        values.put("page_view", news.getPage_view());
+        values.put("supervisor_id", news.getSupervisor_id());
+        values.put("alias", news.getAlias());
+        SQLiteDatabase db = getWritableDatabase();
+        db.replace(Constant.DBProperty.TBL_NAME, null, values);
+        close(db);
     }
 
-    /**
-     * 插入
-     *
-     * @param news NEWS
-     */
-//    public void insert(News news) {
-//        values.put("newId", news.getNewId());
-//        values.put("typeId", news.getTypeId());
-//        values.put("adminId", news.getAdminId());
-//        values.put("newsContent", news.getNewsContent());
-//        values.put("newsTitle", news.getNewsTitle());
-//        values.put("newsTime", news.getNewsTime());
-//        values.put("seeNum", news.getSeeNum());
-//        values.put("thumbnail", news.getThumbnail());
-//        values.put("subType", news.getSubType());
-//        if (db == null) {
-//            SQLiteDatabase db = getWritableDatabase();
-//            this.db = db;
-//        }
-//        Log.e("test", String.valueOf(values.size()) + "##############FROM：insert########################");
-//        db.insert(Constant.DBProperty.TBL_NAME, null, values);
-//        Log.e("test", "已插入");
-//        //db.close();
-//    }
+    public void insertTitle(News news) {
+        values.put("id", news.getId());
+        values.put("category_id", news.getCategory_id());
+        values.put("title", news.getTitle());
+        values.put("update_time", news.getUpdate_time().toString());
+        SQLiteDatabase db = getWritableDatabase();
+        db.replace(Constant.DBProperty.TBL_NAME, null, values);
+        close(db);
+    }
 
-    public Cursor query(int type) {
-        if (db == null) {
-            SQLiteDatabase db = getWritableDatabase();
-            this.db = db;
+    public void insertOutline(News news) {
+        values.put("id", news.getId());
+        values.put("outline_id", news.getOutline_id());
+        values.put("category_id", news.getCategory_id());
+        values.put("title", news.getTitle());
+        values.put("article", news.getArticle());
+        values.put("update_time", news.getUpdate_time().toString());
+        values.put("page_view", news.getPage_view());
+        values.put("supervisor_id", news.getSupervisor_id());
+        values.put("alias", news.getAlias());
+        SQLiteDatabase db = getWritableDatabase();
+        db.replace(Constant.DBProperty.TBL_NAME, null, values);
+        close(db);
+    }
+
+    public void update(News news) {
+        values.put("id", news.getId());
+        values.put("outline_id", news.getOutline_id());
+        values.put("category_id", news.getCategory_id());
+        values.put("title", news.getTitle());
+        values.put("article", news.getArticle());
+        values.put("update_time", news.getUpdate_time().toString());
+        values.put("page_view", news.getPage_view());
+        values.put("supervisor_id", news.getSupervisor_id());
+        values.put("alias", news.getAlias());
+        SQLiteDatabase db = getWritableDatabase();
+        db.update(Constant.DBProperty.TBL_NAME, values, "id=?", new String[]{String.valueOf(news.getId())});
+        close(db);
+    }
+
+    public void insertListDetail(List newsList) {
+        int size = newsList.size();
+        for (int i = 0; i < size; i++) {
+            insertDetail((News) newsList.get(i));
         }
+    }
+
+    public Cursor queryByCategory(int category) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
         try {
-            db.query(Constant.DBProperty.TBL_NAME, null, "typeId=?", new String[]{String.valueOf(type)}, null, null, "newId desc", "0,10");
+            c = db.query(Constant.DBProperty.TBL_NAME, null, "category_id=?",
+                    new String[]{String.valueOf(category)}, null, null, "id desc", "0,10");
+            close(db);
         } catch (Exception e) {
             e.printStackTrace();
-            db = getWritableDatabase();
         }
-        Cursor c = db.query(Constant.DBProperty.TBL_NAME, null, "typeId=?", new String[]{String.valueOf(type)}, null, null, "newId desc", "0,10");
-        //db.close();
         return c;
     }
 
-    //TODO 未测试
-    public void deleteById(int id) {
-        if (db == null) {
-            SQLiteDatabase db = getWritableDatabase();
-            this.db = db;
-        }
+    public Cursor queryByOutline(int outlineId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
         try {
-            Log.e("TEST", "########!!DELETE:" + id + "!!!!!!!!!!!!!!!!!!!!!############");
-            db.execSQL("DELETE FROM news WHERE ID = '" + id + "'");
+            c = db.query(Constant.DBProperty.TBL_NAME, null, "outline_id=?",
+                    new String[]{String.valueOf(outlineId)}, null, null, "id desc", "0,10");
+            close(db);
         } catch (Exception e) {
             e.printStackTrace();
-            db = getWritableDatabase();
         }
-        db.execSQL("DELETE FROM news WHERE newId = '" + id + "'");
-        Log.e("TEST", "########!!DELETE:" + id + "!!!!!!!!!!!!!!!!!!!!!############");
-        //db.close();
+        return c;
     }
 
-    /*public Cursor queryAll() {
-        // SQLiteDatabase db = getWritableDatabase();
-        Cursor c = db.query(Constant.DBProperty.TBL_NAME, null,null,null, null, null, null);
-        return c;
-    }*/
-    public Cursor findNewsById(String NewsId) {
-        if (db == null) {
-            SQLiteDatabase db = getWritableDatabase();
-            this.db = db;
-        }
+    public Cursor findNewsById(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = null;
         try {
-            db.query(Constant.DBProperty.TBL_NAME, null, "newId=?", new String[]{NewsId}, null, null, null);
+            c = db.query(Constant.DBProperty.TBL_NAME, null, "id=?",
+                    new String[]{String.valueOf(id)}, null, null, null);
+            close(db);
         } catch (Exception e) {
             e.printStackTrace();
-            db = getWritableDatabase();
+            close(db);
         }
-        Cursor c = db.query(Constant.DBProperty.TBL_NAME, null, "newId=?", new String[]{NewsId}, null, null, null);
         /*Cursor c = db.rawQuery("SELECT * from "+Constant.DBProperty.TBL_NAME+
-                        " WHERE newId =" +NewsId,null);*/
-        try {
+                        " WHERE id =" + id,null);*/
+        if (c != null) {
             c.moveToFirst();
             c.getString(0);
-            //db.close();
-        } catch (Exception e) {
-            Log.e("TEST", "########!!FROM:findNewsById!!!!!!!!!!!!!!!!!!!!!############");
-            e.printStackTrace();
-            //db.close();
-            return null;
         }
-        //db.close();
-           /* c = db.query(Constant.DBProperty.TBL_NAME, new String[]{"newId", "typeId", "adminId"
-                    , "newsContent", "newsTitle", "newsTime", "seeNum"},"newId=?", new String[]{NewsId},null, null, null,null);*/
         return c;
     }
 
-    public Cursor findNewsByIdAndType(String NewsId, int type) {
-        if (db == null) {
-            SQLiteDatabase db = getWritableDatabase();
-            this.db = db;
-        }
-        try {
-            db.query(Constant.DBProperty.TBL_NAME, null, "newId=? and typeId =?", new String[]{NewsId, String.valueOf(type)}, null, null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            db = getWritableDatabase();
-        }
-        Log.e("TEST", "findNewsByIdAndTyp:########!!!!!" + NewsId + "!!!!!!!!!!!!!" + type + "!!!!!!!!!!!!!############");
-        Cursor c = db.query(Constant.DBProperty.TBL_NAME, null, "newId=? and typeId =?", new String[]{NewsId, String.valueOf(type)}, null, null, null);
-        /*Cursor c = db.rawQuery("SELECT * from "+Constant.DBProperty.TBL_NAME+
-                        " WHERE newId =" +NewsId,null);*/
-        try {
-            c.moveToFirst();
-            db.close();
-            Log.e("TEST", "findNewsByIdAndTyp:##########################" + c.getString(0) + "##########################################");
-        } catch (Exception e) {
-            //Log.e("TEST","########!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!############");
-            e.printStackTrace();
-            //db.close();
-            return null;
-        }
-        //db.close();
-           /* c = db.query(Constant.DBProperty.TBL_NAME, new String[]{"newId", "typeId", "adminId"
-                    , "newsContent", "newsTitle", "newsTime", "seeNum"},"newId=?", new String[]{NewsId},null, null, null,null);*/
-        return c;
-    }
-
-    /*public void del(int id) {
+    public Cursor findNewsByIdAndType(int id, int type) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(Constant.DBProperty.TBL_NAME, "newId=?", new String[] { String.valueOf(id) });
-        db.close();
-    }*/
-    public void close() {
+        Cursor c = null;
+        try {
+            c = db.query(Constant.DBProperty.TBL_NAME, null, "id = ? and category_id =?",
+                    new String[]{String.valueOf(id), String.valueOf(type)}, null, null, null);
+            close(db);
+        } catch (Exception e) {
+            e.printStackTrace();
+            close(db);
+        }
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public void close(SQLiteDatabase db) {
         if (db != null)
             try {
                 db.close();

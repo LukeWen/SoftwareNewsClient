@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.icephone.softwarenewsclient.service.WebService;
-
 /**
  * Created by 温程元 on 2015/4/19.
  */

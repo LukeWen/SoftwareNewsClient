@@ -18,4 +18,8 @@
     <string name="search">搜索</string>
     <string name="search_hint">搜索标题</string>
     <string name="latest_news">最新消息</string>
+    <string name="page_view">浏览量：</string>
+    <string name="editor">编辑：</string>
+    <string name="date_time">时间：</string>
+    <string name="article">正文</string>
 </resources>

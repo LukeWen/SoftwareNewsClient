@@ -25,6 +25,7 @@ public final class Constant {
     public static final String SEARCH_CONTANT = "searchContent";
     public static final String GET_ADVICE = "getAdvice";
     public static final String TEST = "HelloWorld";
+    public static final int PAGE_SIZE = 10;
     public static final int FIRST_LOAD_NUM = 10;
     public static final int SEARCH_TIME = 20;
 
@@ -78,17 +79,6 @@ public final class Constant {
         return countStr(s, "\"") > 0 || countStr(s, "'") > 0 || countStr(s, "DROP") > 0 || countStr(s, "news") > 0 || countStr(s, "DELETE") > 0 || countStr(s, "INSERT") > 0 || countStr(s, "CREATE") > 0;
     }
 
-    public static boolean isNetworkConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            if (mNetworkInfo != null) {
-                return mNetworkInfo.isAvailable();
-            }
-        }
-        return false;
-    }
 
     /**
      * @param context
@@ -107,34 +97,6 @@ public final class Constant {
         return false;
     }
 
-    /**
-     * @param context
-     * @return
-     */
-    public static boolean isMobileConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mMobileNetworkInfo = mConnectivityManager
-                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (mMobileNetworkInfo != null) {
-                return mMobileNetworkInfo.isAvailable();
-            }
-        }
-        return false;
-    }
-
-    public static int getConnectedType(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            if (mNetworkInfo != null && mNetworkInfo.isAvailable()) {
-                return mNetworkInfo.getType();
-            }
-        }
-        return -1;
-    }
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -168,7 +130,6 @@ public final class Constant {
             helper.close();
             System.exit(0);
             android.os.Process.killProcess(android.os.Process.myPid());
-
             return true;
         } else
             return false;
@@ -201,14 +162,8 @@ public final class Constant {
          * 创建news数据库sql
          */
         public static final String CREATE_TBL = " create table "
-                + " news(newId integer primary key not null,typeId int not null,adminId id not null,newsTitle varchar(50) not null"
-                + ",newsContent text not null,newsTime datetime not null,seeNum int,thumbnail varchar(50),subType int);";
-        /**
-         * 创建文章主题数据库sql
-         */
-        /*public static final String TabelPicture_CREATE =
-                "CREATE TABLE IF NOT EXISTS pictures (_id integer primary key autoincrement, " +
-				"picUrl VARCHAR not null, _newsId integer);";*/
+                + " news(id integer primary key not null,outlineId int,category_id int,title varchar(150) not null,article text"
+                + ",update_time datetime not null,page_view int,supervisor_id int,alias varchar(100));";
     }
 
     public static class IntentFilterAction {
