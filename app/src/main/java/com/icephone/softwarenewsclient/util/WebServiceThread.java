@@ -54,6 +54,12 @@ public class WebServiceThread extends Thread {
                 Log.i("outlineId", parameter.get("outlineId").toString());
                 WebService.GetSingleOutlineNewsListWithPageNumber(
                         Integer.parseInt(parameter.get("outlineId").toString()));
+            case GetSingleCategoryNewsListWithPageNumber:
+                for (int i = 1; i < 15; i++) {
+                    Log.i("CategoryId", i + "");
+                    WebService.GetSingleCategoryNewsListWithPageNumber(i);
+                }
+                break;
             default:
                 break;
         }

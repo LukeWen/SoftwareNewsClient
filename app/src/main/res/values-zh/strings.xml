@@ -22,4 +22,6 @@
     <string name="editor">编辑：</string>
     <string name="date_time">时间：</string>
     <string name="article">正文</string>
+    <string name="appwidget_title">最新消息</string>
+    <string name="update_time">更新时间：</string>
 </resources>

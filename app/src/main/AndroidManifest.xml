@@ -44,7 +44,9 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <receiver android:name=".ui.NewsWidget">
+        <receiver
+            android:name=".ui.NewsWidget"
+            android:label="NewsClient">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -54,11 +56,21 @@
                 android:resource="@xml/news_widget_info" />
         </receiver>
 
-        <activity android:name=".ui.NewsWidgetConfigureActivity">
+        <receiver
+            android:name=".ui.NewsListWidget"
+            android:label="News List">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-        </activity>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/news_list_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".service.NewsClientRemoteViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
+
         <activity
             android:name=".ui.DetailActivity"
             android:label="@string/title_activity_detail"></activity>

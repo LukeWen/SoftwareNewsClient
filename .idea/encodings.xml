@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/icephone/softwarenewsclient/ui/DetailActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/icephone/softwarenewsclient/util/ServiceAvailableTestThread.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/icephone/softwarenewsclient/util/WebServiceThread.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build.gradle" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

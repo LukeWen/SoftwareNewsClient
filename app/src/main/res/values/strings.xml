@@ -25,4 +25,6 @@
     <string name="page_view">Page views:</string>
     <string name="editor">Editor:</string>
     <string name="article">Article</string>
+    <string name="appwidget_title">Latest News</string>
+    <string name="update_time">Update Time:</string>
 </resources>

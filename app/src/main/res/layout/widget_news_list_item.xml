@@ -7,53 +7,53 @@
     <TextView
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="12dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/navy"
-        android:gravity="bottom|start"
-        android:text="03"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginLeft="8dp"
+        android:gravity="center|start"
+        android:text="通知"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white_smoke"
-        android:textSize="24sp" />
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/tvMonth"
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignTop="@+id/tvCategory"
-        android:layout_toEndOf="@+id/tvCategory"
-        android:layout_toRightOf="@+id/tvCategory"
-        android:background="@color/royal_blue"
-        android:gravity="bottom|start"
-        android:text="Feb."
+        android:layout_height="12dp"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toLeftOf="@+id/tvId"
+        android:layout_toStartOf="@+id/tvId"
+        android:gravity="center|start"
+        android:text="2015-05-07"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvCategory"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center"
+        android:maxLines="2"
+        android:minLines="1"
         android:singleLine="true"
         android:text="@string/title"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="28sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:layout_above="@+id/tvTitle"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="654"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginRight="8dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/black"
         android:textSize="20sp" />

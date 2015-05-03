@@ -36,6 +36,9 @@ public class WebService {
      * @return the soap object
      */
     private static SoapObject SoapRequest(String methodName, Map<String, Object> content) {
+        if (!Constant.IS_NETWORK_WORKING) {
+            return null;
+        }
         SoapObject request = new SoapObject(Constant.NAMESPACE, methodName);//调用webservice的方法
         int contentSize = content.size();
         String key;
@@ -56,8 +59,10 @@ public class WebService {
 
         HttpTransportSE trans = new HttpTransportSE(Constant.URL);
         //trans.debug = true ;// 使用调试功能
+        Log.i("trans.call", Constant.NAMESPACE + methodName);
+        Log.i("envelope", envelope.enc);
         try {
-            trans.call(Constant.NAMESPACE + methodName, envelope);
+            trans.call(null, envelope);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -146,7 +151,7 @@ public class WebService {
             Map<String, Object> content = new HashMap<>();
             content.put("str", key);
             content.put("pageSize", Constant.PAGE_SIZE);
-            content.put("pageRequested", j);
+            content.put("pageRequested", j + 1);
             SoapObject result = DataSetTrans(SoapRequest("SearchNewsByTitle", content));
 
             if (result != null) {
@@ -191,7 +196,7 @@ public class WebService {
             Map<String, Object> content = new HashMap<>();
             content.put("str", key);
             content.put("pageSize", Constant.PAGE_SIZE);
-            content.put("pageRequested", j);
+            content.put("pageRequested", j + 1);
             SoapObject result = DataSetTrans(SoapRequest("SearchNewsByArticle", content));
 
             if (result != null) {
@@ -236,7 +241,7 @@ public class WebService {
             Map<String, Object> content = new HashMap<>();
             content.put("str", key);
             content.put("pageSize", Constant.PAGE_SIZE);
-            content.put("pageRequested", j);
+            content.put("pageRequested", j + 1);
             SoapObject result = DataSetTrans(SoapRequest("SearchNewsByTitleAndArticle", content));
 
             if (result != null) {
@@ -455,8 +460,8 @@ public class WebService {
             Map<String, Object> content = new HashMap<>();
             content.put("outlineId", outlineId);
             content.put("pageSize", Constant.PAGE_SIZE);
-            content.put("pageRequested", j);
-            Log.i("pageRequested", j + "");
+            content.put("pageRequested", j + 1);
+            Log.i("pageRequested", outlineId + "---" + (j + 1));
             SoapObject result = DataSetTrans(SoapRequest("GetSingleOutlineNewsListWithPageNumber", content));
 
             if (result != null) {
@@ -502,7 +507,8 @@ public class WebService {
             Map<String, Object> content = new HashMap<>();
             content.put("categoryId", categoryId);
             content.put("pageSize", Constant.PAGE_SIZE);
-            content.put("pageRequested", j);
+            content.put("pageRequested", j + 1);
+            Log.i("pageRequested cId", categoryId + "---" + (j + 1));
             SoapObject result = DataSetTrans(SoapRequest("GetSingleCategoryNewsListWithPageNumber", content));
 
             if (result != null) {

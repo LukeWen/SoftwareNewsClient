@@ -17,35 +17,9 @@ public final class Constant {
      */
     public static final String NAMESPACE = "http://tempuri.org/";
     public static final String URL = "http://software.hitwh.edu.cn/ServiceNews.asmx?wsdl";
-    public static final String METHOD_NAME = "getCurrentNews";
-    public static final String GET_NEWS = "getNewById";
-    public static final String GET_TYPE_NEWS = "getNewsByIdAndType";
-    public static final String GET_TYPE_NEWERNEWS = "getNewerNewsByIdAndType";
-    public static final String SEARCH_TITLE = "searchTitle";
-    public static final String SEARCH_CONTANT = "searchContent";
-    public static final String GET_ADVICE = "getAdvice";
     public static final String TEST = "HelloWorld";
     public static final int PAGE_SIZE = 10;
-    public static final int FIRST_LOAD_NUM = 10;
-    public static final int SEARCH_TIME = 20;
 
-    /**
-     *
-     */
-    public final static String TAB_TAG_NEWS = "tab_tag_news";
-    public final static String TAB_TAG_Notify = "tab_tag_notify";
-    public final static String TAB_TAG_CALENDAR = "tab_tag_calendar";
-    public final static String TAB_TAG_SEARCH = "tab_tag_search";
-    public final static String TAB_TAG_MORE = "tab_tag_more";
-
-    /**
-     * 所有表字段
-     */
-    public static final String KEY_ID = "_id";
-    public static final String KEY_TITLE = "newsTitle";
-    public static final String KEY_TIME = "newsTime";
-    public static final String KEY_SEENUM = "seeNum";
-    public static final String KEY_NewsID = "newsId";
     public static long INITIAL_DELAY = 1;
     public static long PERIOD = 3;
     public static int FRAGMENT_NUMBER_OF_MAIN = 4;
@@ -53,9 +27,6 @@ public final class Constant {
     public static boolean IS_SERVICE_WORKING = false;
     public static String SERVICE_STATE = "SERVICE_STATE";
     public static boolean IS_NETWORK_WORKING = false;
-    public static int HOME_FIRST_LOAD_NUM = 4;
-    public static long CLICKTIME = 0;
-    public static boolean FLAG = false;
     private static int counter = 0;
 
     public static int countStr(String str1, String str2) {
@@ -80,10 +51,6 @@ public final class Constant {
     }
 
 
-    /**
-     * @param context
-     * @return
-     */
     public static boolean isWifiConnected(Context context) {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
@@ -107,8 +74,8 @@ public final class Constant {
         } else {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null) {
-                for (int i = 0; i < info.length; i++) {
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                for (NetworkInfo anInfo : info) {
+                    if (anInfo.getState() == NetworkInfo.State.CONNECTED) {
                         Log.i("NetWorkState", "NetWork Available");
                         Constant.IS_NETWORK_WORKING = true;
                         ServiceAvailableTestThread serviceAvailableTestThread = new ServiceAvailableTestThread(context);
@@ -124,7 +91,7 @@ public final class Constant {
     }
 
 
-    public static final boolean FINSH(int keyCode, KeyEvent event, Context c) {
+    public static boolean FINSH(int keyCode, KeyEvent event, Context c) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             DBHelper helper = new DBHelper(c);
             helper.close();
@@ -164,9 +131,5 @@ public final class Constant {
         public static final String CREATE_TBL = " create table "
                 + " news(id integer primary key not null,outlineId int,category_id int,title varchar(150) not null,article text"
                 + ",update_time datetime not null,page_view int,supervisor_id int,alias varchar(100));";
-    }
-
-    public static class IntentFilterAction {
-        public static String DATALOADED = "software.data.loadFinished";
     }
 }
